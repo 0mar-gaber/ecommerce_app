@@ -121,7 +121,6 @@ class HomeTab extends StatelessWidget {
               child: BlocBuilder<BrandViewModel,BrandState>(
                 builder: (context, state) {
                   if(state is BrandErrorState){
-                    print(state.errorMessage);
                     return IconButton(
                         onPressed: () {
                           getIt<CategoriesViewModel>().gelAllCategories();
@@ -164,11 +163,12 @@ class HomeTab extends StatelessWidget {
 
         SliverToBoxAdapter(
           child: SizedBox(
-            height: 265.h,
+            height: 330.h,
             child: BlocProvider(
               create: (context) => getIt<MostSellingProductsViewModel>()..getMostSellingProduct(),
               child: BlocBuilder<MostSellingProductsViewModel,MostSellingProductsState>(
                 builder: (context, state) {
+
                   if(state is MostSellingProductsSuccessState){
                     return ListView.separated(
                       itemBuilder: (context, index) =>  ProductWidget(productEntity: state.productsList![index],),
@@ -184,7 +184,6 @@ class HomeTab extends StatelessWidget {
                     );
                   }
                   if(state is MostSellingProductsErrorState){
-                    print(state.errorMessage);
                     return IconButton(
                         onPressed: () {
                           getIt<CategoriesViewModel>().gelAllCategories();
@@ -209,6 +208,8 @@ class HomeTab extends StatelessWidget {
       ],
     );
   }
+
+
 
 
 }

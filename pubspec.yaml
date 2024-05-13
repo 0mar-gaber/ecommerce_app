@@ -47,6 +47,8 @@ dependencies:
   flutter_bloc: ^8.1.5
   bloc: ^8.1.4
   loading_animation_widget:
+  fluttertoast: ^8.2.5
+  shared_preferences: ^2.2.3
 
 
 dev_dependencies:

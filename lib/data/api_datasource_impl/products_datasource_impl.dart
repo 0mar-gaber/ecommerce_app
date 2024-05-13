@@ -17,7 +17,7 @@ class ProductDatasourceImpl extends ProductDatasourceContract{
      return Left(productResponse);
 
    }catch(error){
-     return Right("product datasource impl///// ${error.toString()} /////");
+     return Right(error.toString());
    }
 
 

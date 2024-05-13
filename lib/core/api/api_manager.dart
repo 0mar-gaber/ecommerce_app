@@ -1,12 +1,24 @@
 import 'package:dio/dio.dart';
 import 'package:ecommerce_app/core/constant.dart';
 import 'package:injectable/injectable.dart';
+
 @singleton
 class ApiManager {
   static late Dio dio;
 
   static void init() {
-    dio = Dio(BaseOptions(baseUrl: Constant.baseUrl));
+    dio = Dio(
+        BaseOptions(
+            baseUrl: Constant.baseUrl,
+            validateStatus: (status){
+              if(status!<500){
+                return true;
+              }
+              return false;
+            }
+        )
+    );
+
   }
 
   Future<dynamic> getRequest({required String endPoint, Map<String, dynamic>? queryParameters}) async {
@@ -23,4 +35,7 @@ class ApiManager {
       throw Exception('Network error: $error');
     }
   }
-}
+
+  Future<Response> postRequest({required String endPoint , Map<String,dynamic>? body})async{
+    return await dio.post(endPoint,data: body);
+  }}

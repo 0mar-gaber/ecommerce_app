@@ -1,7 +1,9 @@
+import 'package:ecommerce_app/core/local_storage/shared_prefrence_helper.dart';
 import 'package:ecommerce_app/presentation/screens/auth/login_screen.dart';
 import 'package:ecommerce_app/presentation/screens/auth/register_screen.dart';
 import 'package:ecommerce_app/presentation/screens/home/home_screen.dart';
 import 'package:ecommerce_app/presentation/screens/home/home_screen_provider.dart';
+import 'package:ecommerce_app/presentation/screens/products/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -30,9 +32,13 @@ class EcommerceApp extends StatelessWidget {
               child:   HomeScreen()),
           LoginScreen.route: (context) => const LoginScreen(),
           RegisterScreen.route: (context) => const RegisterScreen(),
+          ProductsScreen.route:(context)=>const ProductsScreen()
         },
-        // initialRoute: LoginScreen.route,
-        initialRoute: HomeScreen.route,
+        initialRoute: PrefsHelper.getToken().isNotEmpty
+            ? LoginScreen.route
+            : HomeScreen.route
+        ,
+        // initialRoute: HomeScreen.route,
         theme: AppTheme.theme,
 
       ),

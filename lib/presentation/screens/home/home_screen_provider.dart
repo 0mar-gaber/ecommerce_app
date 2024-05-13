@@ -19,11 +19,14 @@ class HomeScreenProvider extends ChangeNotifier{
   }
 
   String id = "6439d5b90049ad0b52b90048" ;
+  String subCategoryName = "Men’s Fashion" ;
   int index = 0;
   bool isFoundItems = true ;
 
-  changeCategory(int newIndex , String newId){
+  changeCategory(int newIndex , String newId,String newSubCategoryName){
     id = newId ;
+    index = newIndex ;
+    subCategoryName = newSubCategoryName;
     notifyListeners();
   }
 

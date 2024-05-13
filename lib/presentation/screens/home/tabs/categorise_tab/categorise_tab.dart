@@ -4,6 +4,7 @@ import 'package:ecommerce_app/presentation/screens/home/tabs/categorise_tab/view
 import 'package:ecommerce_app/presentation/screens/home/tabs/categorise_tab/view_models/right_side_view_model.dart';
 import 'package:ecommerce_app/presentation/screens/home/tabs/categorise_tab/widgets/category_title.dart';
 import 'package:ecommerce_app/presentation/screens/home/tabs/categorise_tab/widgets/sub_category_widget.dart';
+import 'package:ecommerce_app/presentation/screens/products/products_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -11,13 +12,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:provider/provider.dart';
 
+import '../../../../../core/local_storage/shared_prefrence_helper.dart';
 import '../../home_screen_provider.dart';
 
 class CategoryTab extends StatelessWidget {
-   CategoryTab({super.key});
+  CategoryTab({super.key});
+
   @override
   Widget build(BuildContext context) {
-    HomeScreenProvider homeScreenProvider = Provider.of<HomeScreenProvider>(context);
+    printToken();
+    HomeScreenProvider homeScreenProvider =
+        Provider.of<HomeScreenProvider>(context);
     return Column(
       children: [
         AppBar(
@@ -75,10 +80,11 @@ class CategoryTab extends StatelessWidget {
                   ),
                 ),
                 child: BlocProvider(
-                  create:(context) => getIt<LeftSideViewModel>()..getCategorise(),
-                  child: BlocBuilder<LeftSideViewModel,LeftSideState>(
+                  create: (context) =>
+                      getIt<LeftSideViewModel>()..getCategorise(),
+                  child: BlocBuilder<LeftSideViewModel, LeftSideState>(
                     builder: (context, state) {
-                      if(state is LeftSideErrorState){
+                      if (state is LeftSideErrorState) {
                         return IconButton(
                             onPressed: () {
                               getIt<LeftSideViewModel>().getCategorise();
@@ -88,19 +94,24 @@ class CategoryTab extends StatelessWidget {
                               color: Theme.of(context).colorScheme.primary,
                               size: 100.sp,
                             ));
-
                       }
-                      if(state is LeftSideSuccessState){
+                      if (state is LeftSideSuccessState) {
                         return ListView.separated(
-                          padding: REdgeInsets.only(bottom: 32,top:32),
-                          itemBuilder: (context, index)  => InkWell(
+                          padding: REdgeInsets.only(bottom: 32, top: 32),
+                          itemBuilder: (context, index) => InkWell(
                               onTap: () {
-                                homeScreenProvider.changeCategory(index, state.categoriseList![index].id!);
+                                homeScreenProvider.changeCategory(
+                                    index, state.categoriseList![index].id!,state.categoriseList![index].name??"");
                               },
-                              child: homeScreenProvider.index== index
-                                  ? CategoryTitle(categoryEntity: state.categoriseList![index], isSelected: true)
-                                  : CategoryTitle(categoryEntity: state.categoriseList![index],isSelected: false)
-                          ),
+                              child: homeScreenProvider.index == index
+                                  ? CategoryTitle(
+                                      categoryEntity:
+                                          state.categoriseList![index],
+                                      isSelected: true)
+                                  : CategoryTitle(
+                                      categoryEntity:
+                                          state.categoriseList![index],
+                                      isSelected: false)),
                           separatorBuilder: (context, index) {
                             return SizedBox(
                               height: 48.h,
@@ -110,7 +121,7 @@ class CategoryTab extends StatelessWidget {
                         );
                       }
                       return ListView.separated(
-                        itemBuilder: (context, index)  => Center(
+                        itemBuilder: (context, index) => Center(
                           child: LoadingAnimationWidget.staggeredDotsWave(
                             color: Theme.of(context).colorScheme.primary,
                             size: 20.sp,
@@ -129,65 +140,77 @@ class CategoryTab extends StatelessWidget {
               ),
               Expanded(
                 child: Container(
-                  margin: REdgeInsets.only(
-                   left: 24,
-                   right: 16
-                  ),
+                  margin: REdgeInsets.only(left: 24, right: 16),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(height: 13.h,),
-                      Text("Men’s Fashion",
+                      SizedBox(
+                        height: 13.h,
+                      ),
+                      Text(
+                        homeScreenProvider.subCategoryName,
                         style: TextStyle(
-                          fontWeight: FontWeight.w500,
-                          fontSize: 14.sp,
-                          color: AppColors.textColor
-                        ),
+                            fontWeight: FontWeight.w500,
+                            fontSize: 14.sp,
+                            color: AppColors.textColor),
                       ),
                       Expanded(
                         child: BlocProvider.value(
-                          value: getIt<RightSideViewModel>()..getSubCategorise(homeScreenProvider.id),
-                          child: BlocBuilder<RightSideViewModel,RightSideState>(
+                          value: getIt<RightSideViewModel>()
+                            ..getSubCategorise(homeScreenProvider.id),
+                          child:
+                              BlocBuilder<RightSideViewModel, RightSideState>(
                             builder: (context, state) {
-                              if(state is RightSideErrorState){
+                              if (state is RightSideErrorState) {
                                 return IconButton(
                                     onPressed: () {
-                                      getIt<LeftSideViewModel>().getCategorise();
+                                      getIt<LeftSideViewModel>()
+                                          .getCategorise();
                                     },
                                     icon: Icon(
                                       Icons.refresh,
-                                      color: Theme.of(context).colorScheme.primary,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
                                       size: 100.sp,
                                     ));
                               }
-                              if(state is RightSideSuccessState){
+                              if (state is RightSideSuccessState) {
                                 return GridView.builder(
-                                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                                      crossAxisCount: 2,
-                                      mainAxisSpacing: 42.h,
-                                      crossAxisSpacing: 14.w,
-                                      childAspectRatio: 1
-
-                                  ),
+                                  gridDelegate:
+                                      SliverGridDelegateWithFixedCrossAxisCount(
+                                          crossAxisCount: 2,
+                                          mainAxisSpacing: 42.h,
+                                          crossAxisSpacing: 14.w,
+                                          childAspectRatio: 1),
                                   itemBuilder: (context, index) {
-                                    print(state.subCategoriseList!.length);
-                                    if(state.subCategoriseList!.isNotEmpty){
-                                      print("object");
-                                      return SubCategory(subcategoryEntity: state.subCategoriseList![index],);
-                                    }else {
+                                    if (state.subCategoriseList!.isNotEmpty) {
+                                      return InkWell(
+                                        onTap: () => Navigator.pushNamed(context, ProductsScreen.route,arguments: state.subCategoriseList![index]),
+                                        child: SubCategory(
+                                          subcategoryEntity:
+                                              state.subCategoriseList![index],
+                                        ),
+                                      );
+                                    } else {
                                       return Center(
                                         child: Column(
                                           children: [
-                                            SvgPicture.asset("assets/svg/box.svg"),
-                                            Text("coming soon",style: TextStyle(fontSize: 20.sp),)
+                                            SvgPicture.asset(
+                                                "assets/svg/box.svg"),
+                                            Text(
+                                              "coming soon",
+                                              style: TextStyle(fontSize: 20.sp),
+                                            )
                                           ],
                                         ),
-                                      );                                    }
+                                      );
+                                    }
                                   },
                                   itemCount: state.subCategoriseList?.length,
                                 );
                               }
-                              return const Center(child: CircularProgressIndicator());
+                              return const Center(
+                                  child: CircularProgressIndicator());
                             },
                           ),
                         ),
@@ -202,4 +225,9 @@ class CategoryTab extends StatelessWidget {
       ],
     );
   }
+  printToken() async {
+    var x = PrefsHelper.getToken();
+    print(x);
+  }
+
 }
