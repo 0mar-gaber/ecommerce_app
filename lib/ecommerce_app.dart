@@ -34,11 +34,11 @@ class EcommerceApp extends StatelessWidget {
           RegisterScreen.route: (context) => const RegisterScreen(),
           ProductsScreen.route:(context)=>const ProductsScreen()
         },
-        initialRoute: PrefsHelper.getToken().isNotEmpty
-            ? LoginScreen.route
-            : HomeScreen.route
-        ,
-        // initialRoute: HomeScreen.route,
+        // initialRoute: PrefsHelper.getToken().isEmpty
+        //     ? LoginScreen.route
+        //     : HomeScreen.route
+        // ,
+        initialRoute: LoginScreen.route,
         theme: AppTheme.theme,
 
       ),

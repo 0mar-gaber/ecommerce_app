@@ -1,20 +1,20 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce_app/data/api_datasource_contract/auth_datasource_contract.dart';
-import 'package:ecommerce_app/domain/entities/UserEntity.dart';
+import 'package:ecommerce_app/domain/entities/AuthEntity.dart';
 import 'package:ecommerce_app/domain/repository_contract/auth_repo.dart';
 import 'package:injectable/injectable.dart';
 @Injectable(as: AuthRepo)
-class SignupRepoImpl extends AuthRepo{
-  AuthDatasourceContract signupDatasourceContract ;
+class AuthRepoImpl extends AuthRepo{
+  AuthDatasourceContract authDatasourceContract ;
   @factoryMethod
-  SignupRepoImpl(this.signupDatasourceContract);
+  AuthRepoImpl(this.authDatasourceContract);
   @override
-  Future<Either<UserEntity, String>> signup(String userName, String userEmail, String userPassword, String userPhone) async {
-    var result = await signupDatasourceContract.signup(userName, userEmail, userPassword, userPhone);
+  Future<Either<AuthEntity, String>> signup(String userName, String userEmail, String userPassword, String userPhone) async {
+    var result = await authDatasourceContract.signup(userName, userEmail, userPassword, userPhone);
 
     return result.fold(
             (response) {
-              UserEntity entity =  UserEntity(
+              AuthEntity entity =  AuthEntity(
                 name: response.user?.name,
                 email: response.user?.email,
                 role: response.user?.role,
@@ -28,11 +28,11 @@ class SignupRepoImpl extends AuthRepo{
   }
 
   @override
-  Future<Either<UserEntity, String>> login(String userEmail, String userPassword) async {
-    var result = await signupDatasourceContract.login(userEmail, userPassword);
+  Future<Either<AuthEntity, String>> login(String userEmail, String userPassword) async {
+    var result = await authDatasourceContract.login(userEmail, userPassword);
     return result.fold(
             (response) {
-          UserEntity entity =  UserEntity(
+          AuthEntity entity =  AuthEntity(
             name: response.user?.name,
             email: response.user?.email,
             role: response.user?.role,

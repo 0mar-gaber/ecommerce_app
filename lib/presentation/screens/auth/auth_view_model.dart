@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/domain/entities/UserEntity.dart';
+import 'package:ecommerce_app/domain/entities/AuthEntity.dart';
 import 'package:ecommerce_app/domain/use_cases/auth_cases/auth_usecase.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,7 +49,7 @@ class SignupViewModelErrorState extends AuthViewModelState {
   SignupViewModelErrorState(this.errorMessage);
 }
 class SignupViewModelSuccessState extends AuthViewModelState {
-  UserEntity? userEntity ;
+  AuthEntity? userEntity ;
   SignupViewModelSuccessState(this.userEntity);
 }
 
@@ -59,7 +59,7 @@ class LoginViewModelErrorState extends AuthViewModelState {
   LoginViewModelErrorState(this.errorMessage);
 }
 class LoginViewModelSuccessState extends AuthViewModelState {
-  UserEntity? userEntity ;
+  AuthEntity? userEntity ;
   LoginViewModelSuccessState(this.userEntity);
 }
 

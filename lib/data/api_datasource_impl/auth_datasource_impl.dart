@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:ecommerce_app/core/api/api_manager.dart';
 import 'package:ecommerce_app/core/api/end_points.dart';
-import 'package:ecommerce_app/data/models/user_model/UserResponse.dart';
+import 'package:ecommerce_app/data/models/auth_model/AuthResponse.dart';
 import 'package:injectable/injectable.dart';
 
 import '../api_datasource_contract/auth_datasource_contract.dart';
@@ -12,7 +12,7 @@ class AuthDatasourceImpl extends AuthDatasourceContract{
   @factoryMethod
   AuthDatasourceImpl(this.apiManager);
   @override
-  Future<Either<UserResponse, String>> signup( String userName ,String userEmail, String userPassword,String userPhone) async {
+  Future<Either<AuthResponse, String>> signup( String userName ,String userEmail, String userPassword,String userPhone) async {
     try{
       var request =  await apiManager.postRequest(
           endPoint: EndPoint.signupEndPoint,
@@ -25,18 +25,18 @@ class AuthDatasourceImpl extends AuthDatasourceContract{
           }
       );
 
-      var signupRequest = UserResponse.fromJson(request.data);
-      if(signupRequest.statusMsg!=null){
-        return Right("if ${signupRequest.message}some thing error");
+      var signupResponse = AuthResponse.fromJson(request.data);
+      if(signupResponse.statusMsg!=null){
+        return Right(signupResponse.message??"some thing went wrong");
       }
-      return Left(signupRequest);
+      return Left(signupResponse);
     }catch(error){
       return Right(error.toString());
     }
   }
 
   @override
-  Future<Either<UserResponse, String>> login(String userEmail, String userPassword) async {
+  Future<Either<AuthResponse, String>> login(String userEmail, String userPassword) async {
     try{
       var request = await apiManager.postRequest(
           endPoint: EndPoint.loginEndPoint,
@@ -46,7 +46,7 @@ class AuthDatasourceImpl extends AuthDatasourceContract{
           }
       );
 
-      var loginRequest = UserResponse.fromJson(request.data);
+      var loginRequest = AuthResponse.fromJson(request.data);
 
       if(loginRequest.statusMsg!=null){
         return Right("if ${loginRequest.message}some thing error");

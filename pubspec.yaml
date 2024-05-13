@@ -49,6 +49,7 @@ dependencies:
   loading_animation_widget:
   fluttertoast: ^8.2.5
   shared_preferences: ^2.2.3
+  jwt_decoder: ^2.0.1
 
 
 dev_dependencies:
