@@ -1,7 +1,7 @@
 import 'package:ecommerce_app/core/utils/assets_manger.dart';
 import 'package:ecommerce_app/presentation/screens/home/tabs/categorise_tab/categorise_tab.dart';
 import 'package:ecommerce_app/presentation/screens/home/tabs/home_tab/home_tab.dart';
-import 'package:ecommerce_app/presentation/screens/home/tabs/profile_tab.dart';
+import 'package:ecommerce_app/presentation/screens/home/tabs/profile_tab/profile_tab.dart';
 import 'package:ecommerce_app/presentation/screens/home/tabs/wishlist_tab.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';

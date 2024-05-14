@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
-import 'package:ecommerce_app/data/models/user_model/UserResponse.dart';
+import 'package:ecommerce_app/data/models/auth_model/AuthResponse.dart';
 
 abstract class AuthDatasourceContract{
-  Future<Either<UserResponse,String>> signup(String userName ,String userEmail, String userPassword,String userPhone);
-  Future<Either<UserResponse,String>> login(String userEmail, String userPassword);
+  Future<Either<AuthResponse,String>> signup(String userName ,String userEmail, String userPassword,String userPhone);
+  Future<Either<AuthResponse,String>> login(String userEmail, String userPassword);
 }

@@ -37,7 +37,7 @@ class EditText extends StatelessWidget {
       maxLength: maxLength,
       style: TextStyle(
         fontSize: 14.sp,
-        fontWeight: FontWeight.w300,
+        fontWeight: FontWeight.w500,
         color: Theme.of(context).colorScheme.primary,
       ),
       cursorColor: const Color.fromRGBO(0, 65, 130, 1.0),
@@ -47,7 +47,7 @@ class EditText extends StatelessWidget {
         filled: true,
         errorStyle: const TextStyle(color: Colors.red), // Set the color of the error message text to red
         contentPadding: REdgeInsets.only(
-          left: 16,
+          left: 20,
           right: 23,
           bottom: 23,
         ),
@@ -63,27 +63,27 @@ class EditText extends StatelessWidget {
 
         focusedErrorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(30.sp),
+          borderRadius: BorderRadius.circular(25.r),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: const BorderSide(color: Colors.red),
-          borderRadius: BorderRadius.circular(30.sp),
+          borderRadius: BorderRadius.circular(25.r),
         ),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.sp),
+          borderRadius: BorderRadius.circular(25.r),
           borderSide:  BorderSide(color: const Color.fromRGBO(0, 65, 130, 1.0),width: .7.w),
         ),
         disabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.sp),
+          borderRadius: BorderRadius.circular(25.r),
           borderSide:  BorderSide(color: const Color.fromRGBO(0, 65, 130, 1.0),width: .7.w),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(30.sp),
+          borderRadius: BorderRadius.circular(25.r),
           borderSide:  BorderSide(color: const Color.fromRGBO(0, 65, 130, 1.0),width: .7.w),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide:  BorderSide(color: const Color.fromRGBO(0, 65, 130, 1.0),width: .7.w),
-          borderRadius: BorderRadius.circular(30.sp),
+          borderRadius: BorderRadius.circular(25.r),
         ),
       ),
     );
