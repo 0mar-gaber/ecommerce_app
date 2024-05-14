@@ -211,7 +211,7 @@ class _RegisterScreenState extends State<RegisterScreen> {
                           textColor: Colors.white,
                           fontSize: 16.0.sp);
                       print(state.userEntity!.name);
-                      PrefsHelper.setToken("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY2NDI5YmE5ZDlkNzY2MDI3NWJjNjU4MiIsIm5hbWUiOiJjYXNkYWEiLCJyb2xlIjoidXNlciIsImlhdCI6MTcxNTY0MTI1NywiZXhwIjoxNzIzNDE3MjU3fQ.qSMuKstz30f3g1JkSY9YlcSjUQPPB3ggkd5-FpHuqq8");
+                      PrefsHelper.setToken(state.userEntity!.token!);
                       Navigator.pushNamedAndRemoveUntil(
                           context, HomeScreen.route, (route) => false);
                     }

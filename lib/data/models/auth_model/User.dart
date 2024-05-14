@@ -1,5 +1,5 @@
-/// name : "omar"
-/// email : "omar2@gmail.com"
+/// name : "cahvahs"
+/// email : "asdna@gmail.com"
 /// role : "user"
 
 class User {

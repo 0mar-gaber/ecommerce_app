@@ -26,10 +26,12 @@ class AuthDatasourceImpl extends AuthDatasourceContract{
       );
 
       var signupResponse = AuthResponse.fromJson(request.data);
-      if(signupResponse.statusMsg!=null){
-        return Right(signupResponse.message??"some thing went wrong");
+      if(signupResponse.message=="success"){
+        return Left(signupResponse);
+      }else {
+        return Right("${signupResponse.errors!.param} ${signupResponse.errors?.msg}"??"some thing went wrong");
+
       }
-      return Left(signupResponse);
     }catch(error){
       return Right(error.toString());
     }
@@ -41,17 +43,20 @@ class AuthDatasourceImpl extends AuthDatasourceContract{
       var request = await apiManager.postRequest(
           endPoint: EndPoint.loginEndPoint,
           body:{
-            "email":userPassword,
+            "email":userEmail,
             "password":userPassword
           }
       );
 
       var loginRequest = AuthResponse.fromJson(request.data);
 
-      if(loginRequest.statusMsg!=null){
-        return Right("if ${loginRequest.message}some thing error");
+      if(loginRequest.message=="success"){
+        return Left(loginRequest);
+      }else {
+        print(loginRequest.message);
+        return Right(loginRequest.message.toString());
+
       }
-      return Left(loginRequest);
     }catch(error){
       return Right(error.toString());
     }

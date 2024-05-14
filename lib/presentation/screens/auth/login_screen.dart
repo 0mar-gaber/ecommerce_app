@@ -194,7 +194,6 @@ class _LoginScreenState extends State<LoginScreen> {
                                  emailController.text,
                                  passwordController.text,
                              );
-                             Navigator.pushNamed(context, HomeScreen.route);
                            }
                          },
                          style: OutlinedButton.styleFrom(
