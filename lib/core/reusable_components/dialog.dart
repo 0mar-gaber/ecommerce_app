@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class DialogUtil {
-  static showMessageDialog({required BuildContext context, required String message, VoidCallback? onOkPressed}) {
+  static showMessageDialog({
+    required BuildContext context,
+    required String message,
+    VoidCallback? onOkPressed,
+    VoidCallback? onCancelPressed,
+  }) {
     showDialog(
       context: context,
       builder: (context) {
@@ -22,9 +28,21 @@ class DialogUtil {
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                   Text(message),
                   SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                  TextButton(
-                    onPressed: onOkPressed ?? () {},
-                    child: const Text("OK", style: TextStyle(color: Color.fromRGBO(53, 152, 219, 1.0))),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      TextButton(
+                        onPressed: onOkPressed ?? () {},
+                        child: const Text("OK", style: TextStyle(color: Color.fromRGBO(53, 152, 219, 1.0))),
+                      ),
+                      SizedBox(width: 16.w),
+                      TextButton(
+                        onPressed: onCancelPressed ?? () {
+                          Navigator.pop(context);
+                        },
+                        child: const Text("Cancel", style: TextStyle(color: Color.fromRGBO(53, 152, 219, 1.0))),
+                      ),
+                    ],
                   ),
                 ],
               ),
